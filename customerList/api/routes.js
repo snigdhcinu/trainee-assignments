@@ -18,6 +18,7 @@ const Customer = mongoose.model("Customer",customerSchema);
 
 	// Underlying commented lines now give correct output
 
+/*
 
 let result;
 Customer.find((err,users)=>{
@@ -40,6 +41,7 @@ app.get('/',(req,res)=>{
 	res.send();
 });
 
+*/
 
 app.get('/users/getInfo',(req,res) => {
 	Customer.find((err,users) =>{
@@ -54,14 +56,21 @@ app.get('/users/getInfo',(req,res) => {
 });
 
 app.post('/users/addUser',(req,res) => {
-	let name = req.body.name;
-	let email = req.body.email;
-	let age = req.body.age;
+	let username = req.body.name;
+	let useremail = req.body.email;
+	let userage = req.body.age;
 
+	/*
+	console.log('loggin req.body -------------------------------------------------------');
+	console.log(req.body);
+
+	console.log('loggin req.params ******************************************************');
+	console.log(req.params);
+	*/
 	const newUser = new Customer({
-		name:name,
-		email:email,
-		age:age
+		name:username,
+		email:useremail,
+		age:userage
 	});
 
 	newUser.save((err) => {
@@ -70,6 +79,7 @@ app.post('/users/addUser',(req,res) => {
 			res.send(err);
 		}else{
 			console.log('User added successful');
+			console.log(newUser);
 			res.send('User added successfully');
 		}
 	});
