@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
+app.use(cors({origin:'http://192.168.43.110:3000'}))
 
 app.use(bodyParser.urlencoded({extended:true}));
 mongoose.connect('mongodb://localhost:27017/customersDB',{useNewUrlParser:true,useUnifiedTopology:true});
@@ -50,7 +52,7 @@ app.get('/users/getInfo',(req,res) => {
 			res.send(err);
 		}else{
 			console.log(users);
-			res.json(users);
+			res.json({data:users});
 		}
 	});
 });

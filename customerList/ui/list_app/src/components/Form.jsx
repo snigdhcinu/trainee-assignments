@@ -6,7 +6,7 @@ class Form extends React.Component{
 		<div className='form-container'>
 			<p className='sub text'>Register yourself to</p> 
 			<p className='sup text'>be in list.</p>
-			<form className='form' action='http://localhost:8000' method='post'>
+			<form className='form' action='http://192.168.43.110:8000/users/addUser' method='post'>
 				<label for='name'>Full Name :</label><br />
 				<input type='text' className='name' name='name' placeholder="Full Name" /><br /><br />
 				
