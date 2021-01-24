@@ -65,8 +65,8 @@ body{
 					/* FORM */
 .form-container{
 	margin:10vh auto;
-	width:25vw;
-	height:60vh;
+	width:25%;
+	height:60%;
 	padding:2rem;
 	background-color:transparent;
 	backdrop-filter:blur(15px);
