@@ -8,15 +8,18 @@ body{
 	
 }
 
+.action{
+       float:right;
+       margin-right:2rem;
+       margin-bottom:5rem;
+       font-size:1.1rem;
+
+}
+
 
 					/* LIST */
 .target{
 	width:95%;
-}
-.add-user{
-	float:right;
-	margin-right:2rem;
-	margin-bottom:5rem;
 }
 .item-container{
 	width:95%;
@@ -59,30 +62,9 @@ body{
 	border-color:#ec4646;
 }
 
-
-					
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					/* FORM */
 .form-container{
-	margin:20vh auto;
+	margin:10vh auto;
 	width:25vw;
 	height:60vh;
 	padding:2rem;

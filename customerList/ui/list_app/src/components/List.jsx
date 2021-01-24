@@ -27,7 +27,8 @@ class List extends React.Component{
 		}else{
 			return this.state.users.map((user,key)=>{
 				return <Item 
-				key={user._id} 
+				key={user._id}
+				uid={user._id}
 				name={user.name} 
 				email={user.email} 
 				age={user.age}
@@ -40,7 +41,6 @@ class List extends React.Component{
 
 	return(
 		<div>
-		<button className='add-user'>Add User</button>
 		<div className='item-container'>
 			{ this.renderUsers() }
 		</div>

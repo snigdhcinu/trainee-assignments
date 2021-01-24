@@ -57,10 +57,12 @@ app.get('/users/getInfo',(req,res) => {
 	});
 });
 
-app.post('/users/addUser',(req,res) => {
-	let username = req.body.name;
-	let useremail = req.body.email;
-	let userage = req.body.age;
+app.post('/users/addUser/:name/:age/:email',(req,res) => {
+	let username = req.params.name;
+	let useremail = req.params.email;
+	let userage = req.params.age;
+
+	
 
 	/*
 	console.log('loggin req.body -------------------------------------------------------');
@@ -86,6 +88,21 @@ app.post('/users/addUser',(req,res) => {
 		}
 	});
 });
+
+app.delete('./users/deleteUser',(req,res)=>{
+	console.log(`proceeding to deleting item ${req.params.uid}`);
+	console.log('or is it');
+	let uid = req.params.uid
+	Customer.findByIdAndDelete(uid,function(err){
+		if(err){
+			console.log(err);
+			res.send(err);
+		}else{
+			console.log('Success');
+			res.send('Success');
+		}
+	});
+})
 
 app.listen('8000',() => {
 	console.log('Server is online on port 8000...')
