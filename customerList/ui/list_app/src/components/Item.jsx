@@ -16,9 +16,11 @@ class Item extends React.Component{
 		};
 		let response = window.confirm('Do you really want to delete this user ??')
 			if(response === true){
-		fetch('http://192.168.43.110:8000/users/deleteUser/'+uid,reqOpt)
-			.then(response => console.log(response))
-			.then(result => alert(result))
+		fetch(`http://192.168.43.110:8000/users/deleteUser/${uid}`,reqOpt).then(result => {
+			window.location.reload(true);	
+			//alert('User Deleted Successfully');
+				
+			})
 			}
 	}
 

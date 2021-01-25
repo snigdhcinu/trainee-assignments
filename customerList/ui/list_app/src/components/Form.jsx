@@ -18,15 +18,17 @@ class Form extends React.Component{
 		event.preventDefault();
 		console.log(this.state);
 	//	event.stopImmediatePropagation();
-		axios.post('http://192.168.43.110:8000/users/addUser',this.state)
-		.then(response =>{
-			console.log(response);
-			window.alert(response);
-		})
-		.catch(error =>{
-			console.log(error);
-			window.alert(error);
-		}	)
+		axios({
+			method:'post',
+			url:'http://192.168.43.110:8000/users/addUser',
+			data:{
+				name:this.state.name,
+				age:this.state.age,
+				email:this.state.email
+			}
+		}).then((response)=>{
+			alert(response);
+		}).catch(err => alert(err));
 
 
 	}

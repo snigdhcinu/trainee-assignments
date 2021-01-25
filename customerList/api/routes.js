@@ -57,10 +57,10 @@ app.get('/users/getInfo',(req,res) => {
 	});
 });
 
-app.post('/users/addUser/:name/:age/:email',(req,res) => {
-	let username = req.params.name;
-	let useremail = req.params.email;
-	let userage = req.params.age;
+app.post('/users/addUser',(req,res) => {
+	let username = req.body.name;
+	let useremail = req.body.email;
+	let userage = req.body.age;
 
 	
 
@@ -89,7 +89,7 @@ app.post('/users/addUser/:name/:age/:email',(req,res) => {
 	});
 });
 
-app.delete('./users/deleteUser',(req,res)=>{
+app.delete('/users/deleteUser/:uid',(req,res)=>{
 	console.log(`proceeding to deleting item ${req.params.uid}`);
 	console.log('or is it');
 	let uid = req.params.uid
