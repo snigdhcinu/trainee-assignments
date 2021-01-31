@@ -6,42 +6,79 @@ class Form extends React.Component{
 		super(props);
 		this.state={
 			name:'',
-			age:null,
+			age:0,
 			email:''
 		}
 		this.changeHandler = this.changeHandler.bind(this);
-		this.postActions = this.postActions.bind(this)
+		this.saveUser = this.saveUser.bind(this)
 	}
-	postActions(event){
-		
-		
+
+	async saveUser(event){
 		event.preventDefault();
-		console.log(this.state);
-	//	event.stopImmediatePropagation();
-		axios({
-			method:'post',
-			url:'http://192.168.43.110:8000/users/addUser',
-			data:{
-				name:this.state.name,
-				age:this.state.age,
-				email:this.state.email
-			}
-		}).then((response)=>{
-			alert(response);
-		}).catch(err => alert(err));
 
+		let postData = this.getPostData ();
+
+		console.log ({postData}, 'User data before sending to server')
+
+		try {
+			let response = await this.post (postData)
+			console.log ({response}, 'user save ok')
+		}
+		catch (err) {
+			console.error ({err}, 'user save error')
+			alert ('Unable to save user. Please try again')
+		}
 
 	}
+
+	getPostData (){
+		let url = 'http://192.168.43.110:8000/users/addUser';
+		let header = {
+			"content-type" : "application/json"
+		}
+		let data = {
+			name : this.state.name,
+			age  : this.state.age,
+			email: this.state.email
+		}
+
+
+		return {
+			method : 'POST',
+			url,
+			header,
+			data
+		}
+	}
+
+
+	post (postData) {
+		return new Promise ( function (resolve, reject) {
+
+		axios(postData)
+			.then((response)=>{
+				resolve (response)
+			})
+			.catch(err => {
+				reject (err)
+			});
+
+		})
+	}
+
 	changeHandler(e){
+		console.log(e.target.name);
+		console.log(e.target.value);
 		this.setState({[e.target.name]:e.target.value})
 	}
+
 	render(){
 
 	return (
 		<div className='form-container'>
 			<p className='sub text'>Register yourself to</p> 
 			<p className='sup text'>be in list.</p>
-			<form className='form' onSubmit={this.postActions} >
+			<form className='form' onSubmit={this.saveUser} >
 				<label for='name'>Full Name :</label><br />
 				<input type='text' className='name' name='name' placeholder="Full Name" required onChange={this.changeHandler} value={this.state.name}/><br /><br />
 				

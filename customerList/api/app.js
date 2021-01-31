@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({origin:'http://192.168.43.110:3000'}))
+app.use(cors({origin:'http://192.168.43.110:3000'}));
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/customersDB',{useNewUrlParser:true,useUnifiedTopology:true});
 
 const customerSchema = new mongoose.Schema({
@@ -15,10 +16,10 @@ const customerSchema = new mongoose.Schema({
 	age:Number
 });
 
-const Customer = mongoose.model("Customer",customerSchema);
+const Customer = mongoose.model("Customer", customerSchema);
 
 
-	// Underlying commented lines now give correct output
+// Underlying commented lines now give correct output
 
 /*
 
@@ -57,20 +58,22 @@ app.get('/users/getInfo',(req,res) => {
 	});
 });
 
+app.get('/users/addUser',(req,res)=>{
+	res.redirect('http://192.168.43.110:3000');
+});
+
 app.post('/users/addUser',(req,res) => {
+	console.log ({body : req.body}, 'post body');
 	let username = req.body.name;
 	let useremail = req.body.email;
-	let userage = req.body.age;
+	let userage = req.body.age; 
 
-	
+	if (!username || !useremail) {
+		console.error ({username, userage, useremail}, 'one or more mandatory parameters missing');
+		res.status (401). send (new Error ('One or more mandatory params missing'));
+		return;
+	}
 
-	/*
-	console.log('loggin req.body -------------------------------------------------------');
-	console.log(req.body);
-
-	console.log('loggin req.params ******************************************************');
-	console.log(req.params);
-	*/
 	const newUser = new Customer({
 		name:username,
 		email:useremail,
@@ -89,10 +92,11 @@ app.post('/users/addUser',(req,res) => {
 	});
 });
 
+
 app.delete('/users/deleteUser/:uid',(req,res)=>{
 	console.log(`proceeding to deleting item ${req.params.uid}`);
 	console.log('or is it');
-	let uid = req.params.uid
+	let uid = req.params.uid;
 	Customer.findByIdAndDelete(uid,function(err){
 		if(err){
 			console.log(err);
@@ -102,8 +106,8 @@ app.delete('/users/deleteUser/:uid',(req,res)=>{
 			res.send('Success');
 		}
 	});
-})
+});
 
 app.listen('8000',() => {
-	console.log('Server is online on port 8000...')
+	console.log('Server is online on port 8000...');
 });
